@@ -1,0 +1,28 @@
+TABLE country
+	Id        PK
+  	abbr      varchar 5
+  	name      varchar 100
+  	isdCode   varchar 4       (+91 for India +1 for US and Canada)
+
+TABLE state(County, state, province)
+	id        PK
+  	abbr      varchar 5
+  	name      varchar 100
+  	countryId foreign Key(country)
+  
+TABLE city   
+  	id        PK
+  	abbr      varchar 5
+  	name      varchar 100
+  	stateId   foreign Key(state)
+  
+TABLE registeredUsers
+  	userId      PK
+  	FName       100 varchar
+  	MName       100 varchar
+  	LName       100 varchar
+  	gender      enum          	(0 not known, 1 Male, 2 Female, Not Disclosed)
+  	adress1     255 varchar
+  	address2    255 char
+  	cityId		FK(city)		State Id and CountryId will follow from cityId
+	  	
