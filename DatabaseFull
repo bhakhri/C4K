@@ -17,12 +17,13 @@ TABLE city
   	stateId   foreign Key(state)
   
 TABLE registeredUsers
-  	userId      PK
-  	FName       100 varchar
-  	MName       100 varchar
-  	LName       100 varchar
-  	gender      enum          	(0 not known, 1 Male, 2 Female, Not Disclosed)
-  	adress1     255 varchar
-  	address2    255 char
+  	userId      	PK
+  	FName       	100 varchar
+  	MName       	100 varchar
+  	LName       	100 varchar
+  	gender      	enum          	(0 not known, 1 Male, 2 Female, Not Disclosed)
+  	adress1     	255 varchar
+  	address2    	255 char
   	cityId		FK(city)		State Id and CountryId will follow from cityId
-	  	
+  	UserName	100 varchar	(Email Address as UserName)
+  	Password	100 varchar	[Password to be stored by creating md5 hash]
