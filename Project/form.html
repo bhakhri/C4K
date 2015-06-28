@@ -225,13 +225,13 @@ input:focus ~ .highlight {
       				<input type="text" required id = "f_name">
       				<span class="highlight"></span>
       				<span class="bar"></span>
-      				<label>Father's Name</label>
+      				<label>Fathers's Name</label>
   				</div>
       		    <div class="group" style="float:right;width:60%;position:relative;">      
    					<input type="text" required id = "m_name">
       				<span class="highlight"></span>
       				<span class="bar"></span>
-      				<label>Mother's Name</label>
+      				<label>Mothers's Name</label>
     			</div>
                 <div class="group"  style="float:left;width:40%;position:relative;">      
         			<input type="text" required id="adr1">
@@ -246,13 +246,23 @@ input:focus ~ .highlight {
 			      <label>ADDRESS LINE 2</label>
     			</div>
 				<div class="group"  style="float:left;width:40%;position:relative;">      
-      	  			<input type="text" required id ="city">
+      	  			<select id = "city">
+	  					<option>MALE</option>
+	  					<option>FEMALE</option>
+	  					<option>TRANSGENDER</option>
+	  					<option>NOT SPECIFIED</option>
+	  				  </select>
       				  <span class="highlight"></span>
       				  <span class="bar"></span>
       				  <label>CITY</label>
  				</div>
       		    <div class="group" style="float:right;width:60%;position:relative;">      
-   					<input type="text" required id ="state">
+   					<select id = "state">
+	  					<option>MALE</option>
+	  					<option>FEMALE</option>
+	  					<option>TRANSGENDER</option>
+	  					<option>NOT SPECIFIED</option> 
+			        </select>
       				<span class="highlight"></span>
       				<span class="bar"></span>
      				<label>STATE</label>
@@ -318,7 +328,7 @@ input:focus ~ .highlight {
                 
                 
                    <div class="group"  style="float:right;width:30%;position:relative;">      
-     				 <paper-fab icon="arrow-forward" ></paper-fab>
+     				<a href="image_upload.html"> <paper-fab icon="arrow-forward" ></paper-fab></a>
 	  		 	</div>
             </form>
   		</div>
