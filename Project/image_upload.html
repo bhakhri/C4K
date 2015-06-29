@@ -233,6 +233,7 @@ input:focus ~ .highlight {
 
 
 
+
 </style>
 </head>
 <body fullbleed layout vertical>
@@ -269,9 +270,17 @@ input:focus ~ .highlight {
 	
 <form id="imageform" method="post" enctype="multipart/form-data" action='ajaxImageUpload.php' style="clear:both">
 
-<div id='imageloadstatus' style='display:none'><img src="loader.gif" alt="Uploading...."/></div>
-<div id='imageloadbutton'>
-<input type="file" name="photos[]" id="photoimg" multiple />
+<div id='imageloadstatus' style='display:none'><img src="img/loader.gif" alt="Uploading...."/></div>
+<div id='imageloadbutton' style="    width: 139px;
+    height: 52px;
+    background: url(img/upload.jpg);
+    overflow: hidden;
+">
+<input type="file" name="photos[]" id="photoimg" multiple  style=" display: block !important;
+    width: 139px !important;
+    height: 52px !important;
+    opacity: 0 !important;
+    overflow: hidden !important;"/>
 </div>
 </form>
 
