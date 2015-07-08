@@ -1,28 +1,198 @@
-TABLE country
-	Id        PK
-  	abbr      varchar 5
-  	name      varchar 100
-  	isdCode   varchar 4       (+91 for India +1 for US and Canada)
+/*  -------------------------------------------------------------------------------------
+   | THIS IS PARTIAL DATABASE DESIGN. PLEASE CHECK THIS AND GET IN TOUCH FOR ANY DOUBT   |
+    -------------------------------------------------------------------------------------
+SQLyog Ultimate v11.11 (64 bit)
+MySQL - 5.6.17 : Database - c4k2
+*********************************************************************
+*/
 
-TABLE state(County, state, province)
-	id        PK
-  	abbr      varchar 5
-  	name      varchar 100
-  	countryId foreign Key(country)
-  
-TABLE city   
-  	id        PK
-  	abbr      varchar 5
-  	name      varchar 100
-  	stateId   foreign Key(state)
-  
-TABLE registeredUsers
-  	userId      PK
-  	FName       100 varchar
-  	MName       100 varchar
-  	LName       100 varchar
-  	gender      enum          	(0 not known, 1 Male, 2 Female, Not Disclosed)
-  	adress1     255 varchar
-  	address2    255 char
-  	cityId		FK(city)		State Id and CountryId will follow from cityId
-	  	
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*Table structure for table `child_photos` */
+
+DROP TABLE IF EXISTS `child_photos`;
+
+CREATE TABLE `child_photos` (
+  `ChildId` bigint(20) unsigned NOT NULL,
+  `childType` enum('Lost','Found') NOT NULL,
+  `photoNo` int(10) unsigned NOT NULL COMMENT 'since multiple photos may be uploaded',
+  `photoFile` varchar(100) NOT NULL COMMENT 'name of the file contaiting this photo',
+  PRIMARY KEY (`ChildId`,`childType`,`photoNo`),
+  CONSTRAINT `child_photos_ibfk_1` FOREIGN KEY (`ChildId`) REFERENCES `combined_child_list` (`childId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `child_photos` */
+
+LOCK TABLES `child_photos` WRITE;
+
+UNLOCK TABLES;
+
+/*Table structure for table `combined_child_list` */
+
+DROP TABLE IF EXISTS `combined_child_list`;
+
+CREATE TABLE `combined_child_list` (
+  `childId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`childId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `combined_child_list` */
+
+LOCK TABLES `combined_child_list` WRITE;
+
+UNLOCK TABLES;
+
+/*Table structure for table `lost_child` */
+
+DROP TABLE IF EXISTS `lost_child`;
+
+CREATE TABLE `lost_child` (
+  `id` bigint(20) unsigned NOT NULL COMMENT 'use autoincremented child Id in combined_child table as primary key',
+  `childName` varchar(500) DEFAULT NULL,
+  `reporterRelation` enum('Parent','Legal Guardian','Agency','Other') DEFAULT NULL COMMENT 'how reporter is related to child',
+  `specificRelation` varchar(100) DEFAULT NULL COMMENT 'If reporter selects "other" relation he is shown this option',
+  `DOB` date DEFAULT NULL COMMENT 'Null in case not known',
+  `ageYears` int(11) DEFAULT NULL COMMENT 'If DOB knwon leave this empty',
+  `ageMonths` int(11) DEFAULT NULL COMMENT 'If DOB knwon leave this empty',
+  `dateMissing` date DEFAULT NULL COMMENT 'incident may be reported on 20th while child went missing on 15th',
+  `heightFeet` int(11) DEFAULT NULL COMMENT 'Height: Feet part of height',
+  `heightInch` int(11) DEFAULT NULL COMMENT 'Height: Inches part of height',
+  `gender` enum('Male','Female','Trans Gender') DEFAULT NULL,
+  `handicapped` enum('No','Physically','Mentally') DEFAULT NULL,
+  `description` varchar(1000) DEFAULT NULL COMMENT 'describe how the child was lost',
+  `hairColour` enum('Black','Brown','Blond','Grey/White','None') DEFAULT NULL,
+  `hairLength` enum('None','Short','Medium','Long') DEFAULT NULL,
+  `eyeColour` enum('Black','Brown','Blue','Greenish','Reddish','Other') DEFAULT NULL,
+  `eyePlacement` enum('Close Set','Widely Set','Molnoloid','Hooded','Deep Set','Protruding','Right Squint','Left Squint','Not Sure') DEFAULT NULL,
+  `earSize` enum('Small','Medium','Large','Not Known') DEFAULT NULL,
+  `earType` enum('Round','Square','Pointed','Not Sure') DEFAULT NULL,
+  `earLobeType` enum('Attached','Free','Not Known') DEFAULT NULL,
+  `lipsColour` enum('Black','Red','Pink','Purple','Not Known') DEFAULT NULL,
+  `lipsType` enum('Cleft Lip','Drooping','Full','Thin','Wrinkled') DEFAULT NULL,
+  `noseType` enum('Broad Nose','Broad Tip','Deviated Nose','Ideal NOse','Small Nose') DEFAULT NULL,
+  `frontTeeth` enum('Normal','Broken','One Missing','Two Missing','No Teeth') DEFAULT NULL,
+  `spectacleType` enum('Not Wearing','Rectangular Frame','Rectangular Frameless','Round Frame','Round Frameless') DEFAULT NULL,
+  `spectacleColour` varchar(100) DEFAULT NULL,
+  `complexion` enum('Very Dark','Dark','Wheatish','Fair','Very Fair') DEFAULT NULL,
+  `build` enum('Thin','Normal','Heavy') DEFAULT NULL,
+  `skinType` enum('Dry','Normal','Oily') DEFAULT NULL,
+  `neckType` enum('Long','Normal','Short','Thick','Thin') DEFAULT NULL,
+  `topWear` enum('Shirt','Kurta','Nothing','TShirt','Vest') DEFAULT NULL,
+  `topWearColour` varchar(100) DEFAULT NULL,
+  `bottomWear` enum('Full Pant','Half Pants','Shorts','Lower','Skirt','Jeans','Dhoti','Other') DEFAULT NULL,
+  `bottomWearColour` varbinary(100) DEFAULT NULL,
+  `footWear` enum('Barefoot','Sports Shoes','Sandals','Slippers','Formal Shoes') DEFAULT NULL,
+  `footWearColour` varchar(100) DEFAULT NULL,
+  `identificationMarks` varchar(500) DEFAULT NULL,
+  `primaryLanguage` enum('Cannot Speak','Assammese','Bengali','Bodo','Dogri','English','Gujrati','Hindi','Kannada','Kashmiri','Maithili','Malyalam','Manipuri','Marathi','Nepali','Odiya','Punjabi','Sanskrit','Santhali','Sindhi','Tamil','Telugu','Urdu','Other') DEFAULT NULL,
+  `otherPrimaryLanguage` varchar(100) DEFAULT NULL COMMENT 'Show this only if answer to primary language is "Other"',
+  `otherLanguages` varchar(500) DEFAULT NULL COMMENT 'MULTI SELECT FROM(allOW TO SPECIFY OTHER ALSO) ''Cannot Speak'',''Assammese'',''Bengali'',''Bodo'',''Dogri'',''English'',''Gujrati'',''Hindi'',''Kannada'',''Kashmiri'',''Maithili'',''Malyalam'',''Manipuri'',''Marathi'',''Nepali'',''Odiya'',''Punjabi'',''Sanskrit'',''Santhali'',''Sindhi'',''Tamil'',''Telugu'',''Urdu'',''Other''',
+  `fatherName` varchar(500) DEFAULT NULL,
+  `fatherEmail` varchar(100) DEFAULT NULL,
+  `fatherCountryCode` varchar(10) DEFAULT NULL,
+  `fatherMobile` varchar(100) DEFAULT NULL,
+  `motherName` varchar(500) DEFAULT NULL,
+  `motherEmail` varchar(100) DEFAULT NULL,
+  `motherCountryCode` varchar(10) DEFAULT NULL,
+  `motherMobile` varchar(100) DEFAULT NULL,
+  `lostAtState` bigint(20) unsigned DEFAULT NULL,
+  `lostAtCity` bigint(20) unsigned DEFAULT NULL,
+  `lostAtAddress` varchar(500) DEFAULT NULL,
+  `pincode` int(6) unsigned DEFAULT NULL,
+  `noOfPhotos` int(10) unsigned DEFAULT NULL,
+  `video` varchar(100) DEFAULT NULL COMMENT 'file name of video file',
+  `agreestoAgreement` enum('Yes','No') DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `lost_child_ibfk_1` FOREIGN KEY (`id`) REFERENCES `combined_child_list` (`childId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `lost_child` */
+
+LOCK TABLES `lost_child` WRITE;
+
+UNLOCK TABLES;
+
+/*Table structure for table `lost_report` */
+
+DROP TABLE IF EXISTS `lost_report`;
+
+CREATE TABLE `lost_report` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'incedent id, one incident per child being reported',
+  `reporterId` bigint(20) unsigned NOT NULL COMMENT 'Id of person reporting',
+  `childId` bigint(20) unsigned NOT NULL,
+  `reportDate` datetime NOT NULL COMMENT 'Time when loss is being reported',
+  `reportCity` bigint(20) unsigned DEFAULT NULL COMMENT 'City from where incident is being reported',
+  `photoCount` int(11) DEFAULT NULL COMMENT 'No of photos of child uploaded',
+  PRIMARY KEY (`id`),
+  KEY `reporterId` (`reporterId`),
+  KEY `childId` (`childId`),
+  CONSTRAINT `lost_report_ibfk_1` FOREIGN KEY (`reporterId`) REFERENCES `registered_users` (`id`),
+  CONSTRAINT `lost_report_ibfk_2` FOREIGN KEY (`childId`) REFERENCES `combined_child_list` (`childId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `lost_report` */
+
+LOCK TABLES `lost_report` WRITE;
+
+UNLOCK TABLES;
+
+/*Table structure for table `registered_users` */
+
+DROP TABLE IF EXISTS `registered_users`;
+
+CREATE TABLE `registered_users` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `person_agency` enum('person','agency') DEFAULT NULL COMMENT 'Whether this user is an individual or represents an agency(Say CRY or "Snehalaya" or "Police"',
+  `first_name` varchar(50) DEFAULT NULL,
+  `middle_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `gender` enum('TransGender','Male','Female') DEFAULT NULL COMMENT 'NULL means "Does not want to declare Gender"',
+  `mobile` varchar(15) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `address1` varchar(100) DEFAULT NULL,
+  `address2` varchar(100) DEFAULT NULL,
+  `district_id` bigint(20) unsigned DEFAULT NULL COMMENT 'state and country will be known from foreign keys',
+  `photo` varchar(100) DEFAULT NULL COMMENT 'name of the file containing image of the user',
+  `sceret_question` varchar(200) DEFAULT NULL COMMENT 'question to recover user ID',
+  `secret_answer` varchar(100) DEFAULT NULL COMMENT 'answer to secret question',
+  `role_id` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `city_id` (`district_id`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `registered_users_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `registered_users` */
+
+LOCK TABLES `registered_users` WRITE;
+
+UNLOCK TABLES;
+
+/*Table structure for table `role` */
+
+DROP TABLE IF EXISTS `role`;
+
+CREATE TABLE `role` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `role_type` enum('Admin','individual','agency') DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `role` */
+
+LOCK TABLES `role` WRITE;
+
+UNLOCK TABLES;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
