@@ -3,7 +3,10 @@ A unique opportunity to  HELP THE MOST HELPLESS.
 We are looking for contributors for developing an ecosystem(Web site, apps) for welfare of Children. The project is a voluntary work undertaken by Google Developers Groups of Chandigarh and Jalandhar under the mentorship of Mr. OP Singh Commisioner of Police, Ambala and Panchkula Circles.
 
 Anmol Sharma (DAV Institute of Engineering and Technology, Jalandhar) is our Pattern Recognition Geek and Harpinder Kaur(LPU) is our Big Data Geek Goddess. Nitika Rajput(LPU) is our creative mind.
-The Project Architechure will be driven by Vineet Gupta, Anmol Sharma and Sachin Sharma
+
+The Project Architechure by:<br>
+**Vineet Gupta, Anmol Sharma and Sachin Sharma**
+
 We are looking for experts in the following domains:<br />
 
 1	Facial Recognition <br />
